@@ -1,0 +1,27 @@
+.App{
+  margin: 0 auto;
+}
+
+.App table{
+  padding: 3%;
+  width: 100vw;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.App table td{
+  width: 3vw;
+}
+
+.App caption{
+  background-color: black;
+  color: white;
+}
+
+.container-buttons{
+
+  display: flex;
+  justify-content: space-evenly;
+}
