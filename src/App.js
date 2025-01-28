@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./css/App.css";
 
 export const App = () => {
+
+  let [inputValue, setInputValue] = useState("");
+
   const [collectionAgents, setCollectionAgents] = useState([
     { id: 1, name: "N/A", x: 0, y: 0, z: 0 },
     { id: 2, name: "N/A", x: 0, y: 0, z:0 },
@@ -23,8 +26,9 @@ export const App = () => {
   };
 
   const fetchAgentsFromServer = async () => {
-    const fetchAttemption = await fetch('http://localhost:3000/agents');
-    if (!fetchAttemption.ok){ console.error("ERRO: erro no get do servidor"); return; }
+    console.log(`${inputValue}/agents`);
+    const fetchAttemption = await fetch(`${inputValue}/agents`);
+    if (!fetchAttemption.ok){ console.error("ERRO: erro no get do servidor | valor inválido"); return; }
 
     let response = await fetchAttemption.json(); 
     
@@ -33,10 +37,12 @@ export const App = () => {
   }
 
   const pushAgentsToServer = async ()=>{
+    console.log(`${inputValue}/changePosition`);
+    
     try {
       console.log(JSON.stringify(collectionAgents));
       
-      const response = await fetch('http://localhost:3000/changePosition', {
+      const response = await fetch( `${inputValue}/changePosition`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Tipo de conteúdo
@@ -55,8 +61,14 @@ export const App = () => {
     }
   }
 
+
   return (
     <div className="App">
+
+      <input type="text" onChange={(event) => {
+          setInputValue(event.target.value);
+        }} value={inputValue} placeholder="Digite o endereço" ></input>
+
 
       <table>
         <caption>Agentes</caption>
